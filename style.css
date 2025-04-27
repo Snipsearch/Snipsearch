@@ -1,0 +1,116 @@
+/* Existing styles (no changes) */
+
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background: #f1f3f6;
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 0 10px;
+}
+
+input {
+  width: 70%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+button {
+  padding: 12px 20px;
+  background: #0066ff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0052cc;
+}
+
+/* New News Stand Section */
+.news-stand {
+  margin-top: 30px;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+
+.news-stand h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.news-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.news-links a {
+  background: #0066ff;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.news-links a:hover {
+  background: #0052cc;
+}
+
+#results {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  padding: 10px;
+}
+
+.result-card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.result-card:hover {
+  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+}
+
+.result-card a {
+  font-size: 20px;
+  font-weight: bold;
+  color: #0066ff;
+  text-decoration: none;
+}
+
+.result-card a:hover {
+  text-decoration: underline;
+}
+
+.result-card p {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #555;
+}
