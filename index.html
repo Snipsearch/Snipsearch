@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Snipsearch Web</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Snipsearch Web</h1>
+
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search the web...">
+    <button onclick="search()">Search</button>
+  </div>
+
+  <!-- News Stand Section -->
+  <div class="news-stand">
+    <h2>News Stand</h2>
+    <div class="news-links">
+      <!-- Example Links -->
+      <a href="https://www.bbc.com" target="_blank">BBC News</a>
+      <a href="https://www.cnn.com" target="_blank">CNN</a>
+      <a href="https://www.techcrunch.com" target="_blank">TechCrunch</a>
+      <a href="https://www.aljazeera.com" target="_blank">Al Jazeera</a>
+      <!-- Add more links easily -->
+    </div>
+  </div>
+
+  <div id="results"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
