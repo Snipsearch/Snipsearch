@@ -5,49 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Snipsearch Web</title>
   <link rel="stylesheet" href="style.css">
-  
-<!-- Basic SEO -->
-<meta name="description" content="Snipsearch Web is a fast, lightweight and smart search engine. Discover websites, news, and knowledge in one place.">
-<meta name="keywords" content="Snipsearch Web, Search Engine, Google Programmable Search, Web Search, News Search, Smart Browser,Searx, Snipsearch AI">
-<meta name="author" content="Keshav Sharma">
 
-<!-- Logo Structured Data for Google -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Snipsearch Web",
-  "url": "https://snipsearch-web.vercel.app/",
-  "logo": "https://i.ibb.co/WpVHyPv5/59268fcf5e3b.png"
-}
-</script>
+  <!-- Basic SEO -->
+  <meta name="description" content="Snipsearch Web is a fast, lightweight and smart search engine. Discover websites, news, and knowledge in one place.">
+  <meta name="keywords" content="Snipsearch Web, Search Engine, Google Programmable Search, Web Search, News Search, Smart Browser, Searx, Snipsearch AI">
+  <meta name="author" content="Keshav Sharma">
 
-<!-- Favicon -->
-<link rel="icon" href="favicon.ico" type="image/x-icon">
+  <!-- Logo Structured Data for Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Snipsearch Web",
+    "url": "https://snipsearch-web.vercel.app/",
+    "logo": "https://i.ibb.co/WpVHyPv5/59268fcf5e3b.png"
+  }
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <!-- PWA Support -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000000">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").then(() => {
+        console.log("Service Worker Registered");
+      });
+    }
+  </script>
 </head>
 <body>
 
   <h1>Snipsearch Web</h1>
 
-  <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Search the web...">
-    <button onclick="search()">Search</button>
-  </div>
-
-  <!-- News Stand Section -->
-  <div class="news-stand">
-    <h2>News Stand</h2>
-    <div class="news-links">
-      <!-- Example Links -->
-      <a href="https://www.bbc.com" target="_blank">BBC News</a>
-      <a href="https://www.cnn.com" target="_blank">CNN</a>
-      <a href="https://www.techcrunch.com" target="_blank">TechCrunch</a>
-      <a href="https://www.aljazeera.com" target="_blank">Al Jazeera</a>
-      <!-- Add more links easily -->
+  <main>
+    <div class="search-container">
+      <label for="searchInput" class="visually-hidden">Search</label>
+      <input type="text" id="searchInput" placeholder="Search the web...">
+      <button onclick="search()">Search</button>
     </div>
-  </div>
 
-  <div id="results"></div>
+    <!-- News Stand Section -->
+    <nav class="news-stand">
+      <h2>News Stand</h2>
+      <div class="news-links">
+        <a href="https://www.bbc.com" target="_blank">BBC News</a>
+        <a href="https://www.cnn.com" target="_blank">CNN</a>
+        <a href="https://www.techcrunch.com" target="_blank">TechCrunch</a>
+        <a href="https://www.aljazeera.com" target="_blank">Al Jazeera</a>
+      </div>
+    </nav>
+
+    <div id="results"></div>
+  </main>
+
+  <noscript>Please enable JavaScript to use Snipsearch Web.</noscript>
 
   <script src="script.js"></script>
 </body>
