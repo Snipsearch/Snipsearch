@@ -12,8 +12,8 @@ function search() {
   const query = document.getElementById("searchInput").value.trim().toLowerCase();
 
   const staticPages = {
-    "top 20 websites": "top20.html",
-    "html cheatsheet": "htmlsheet.html",
+    "download snipsearch": "snipsearch.html",
+    "top 10 countries with high gdp": "gdp.html",
     "best ai tools": "aitools.html",
     "useful web tools": "webtools.html",
     "best coding apps": "bestapps.html"
