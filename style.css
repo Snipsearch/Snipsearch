@@ -1,138 +1,135 @@
-/* Existing styles (no changes) */
-
 body {
   font-family: Arial, sans-serif;
-  padding: 20px;
-  background: #f1f3f6;
+  background-color: #f4f4f4;
   margin: 0;
+  padding: 0;
 }
 
-h1 {
+header {
+  background-color: #0066ff;
+  color: white;
+  padding: 10px 20px;
   text-align: center;
-  color: #333;
 }
 
 .search-container {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 10px;
-  margin-top: 20px;
-  padding: 0 10px;
+  padding: 20px;
+  flex-wrap: wrap;
 }
 
-input {
-  width: 70%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
+input[type="text"] {
+  padding: 10px;
   font-size: 16px;
+  width: 200px;
 }
 
 button {
-  padding: 12px 20px;
-  background: #0066ff;
+  padding: 10px 20px;
+  background-color: #0066ff;
   color: white;
   border: none;
-  border-radius: 10px;
-  font-size: 16px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
 button:hover {
-  background: #0052cc;
+  background-color: #0052cc;
 }
 
-/* New News Stand Section */
-.news-stand {
-  margin-top: 30px;
-  background: white;
+#wiki-results {
+  margin: 20px;
+  background-color: #eafbe9;
+  padding: 15px;
+  border: 2px solid #7bb67b;
+  border-radius: 10px;
+}
+
+#wiki-results h3 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#wiki-results p {
+  font-size: 16px;
+}
+
+#wiki-results a {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.home-panel {
+  margin: 20px;
   padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-}
-
-.news-stand h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .news-links {
   display: flex;
+  gap: 10px;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
 }
 
 .news-links a {
   background: #0066ff;
   color: white;
   padding: 10px 15px;
-  border-radius: 8px;
+  border-radius: 6px;
   text-decoration: none;
-  font-size: 16px;
-  transition: background 0.3s;
 }
 
 .news-links a:hover {
   background: #0052cc;
 }
 
-#results {
-  margin-top: 30px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-  padding: 10px;
-}
-
-.result-card {
-  background: white;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-  transition: 0.3s;
-}
-
-.result-card:hover {
-  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
-}
-
-.result-card a {
-  font-size: 20px;
-  font-weight: bold;
-  color: #0066ff;
+.app-panel .app-download-btn {
+  display: inline-block;
+  margin-top: 10px;
+  background: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
   text-decoration: none;
 }
 
-.result-card a:hover {
-  text-decoration: underline;
+.app-panel .app-download-btn:hover {
+  background: #218838;
+}
+
+.result-card {
+  background-color: white;
+  margin: 10px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.result-card h3 {
+  font-size: 18px;
+  margin: 10px 0;
 }
 
 .result-card p {
-  margin-top: 10px;
-  font-size: 16px;
-  color: #555;
-}
-.result-card {
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 10px;
-  background: #fff;
+  font-size: 14px;
+  color: #333;
 }
 
-.thumbnail {
-  width: 100px;
-  float: left;
-  margin-right: 15px;
-  border-radius: 8px;
+.result-card a {
+  text-decoration: none;
+  color: #1565c0;
 }
 
-.wiki-box {
-  border: 2px solid #4CAF50;
-  background: #e6ffe6;
-  padding: 15px;
-  margin-bottom: 20px;
-  border-radius: 10px;
+.result-image {
+  max-width: 90%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }

@@ -1,55 +1,68 @@
+const apiKey = 'AIzaSyDFliUSc0-bUmwbM1YR4wmQXk5wVgGV6-A';
+const cx = 'c7621a78e53794892';
+const newsApiKey = 'pub_8058222c107541d88e82662dd2739bf4';
+
+function search() {
+  const query = document.getElementById("searchInput").value;
+  if (!query) return;
+
+  document.getElementById("homePanels").style.display = "none";
+
+  fetchWikipedia(query);
+  fetchGoogleResults(query);
+}
+
 function goHome() {
-  document.getElementById("newsStand").style.display = "block";
   document.getElementById("results").innerHTML = "";
-  document.getElementById("homeBtn").style.display = "none";
+  document.getElementById("wiki-results").innerHTML = "";
+  document.getElementById("homePanels").style.display = "block";
   document.getElementById("searchInput").value = "";
 }
 
-function search() {
-  document.getElementById("newsStand").style.display = "none";
-  document.getElementById("homeBtn").style.display = "inline-block";
-
-  const query = document.getElementById("searchInput").value.trim().toLowerCase();
-
-  const staticPages = {
-    "download snipsearch": "https://snipsearchweb555.github.io/Download---Snipsearch-/",
-    "top 10 countries with high gdp": "https://yourusername.github.io/gdp/",
-    "best ai tools": "https://yourusername.github.io/aitools/",
-    "useful web tools": "https://yourusername.github.io/webtools/",
-    "best coding apps": "https://yourusername.github.io/bestapps/"
-  };
-
-  if (staticPages[query]) {
-    window.location.href = staticPages[query];
-    return;
-  }
-
-  const apiKey = "AIzaSyDFliUSc0-bUmwbM1YR4wmQXk5wVgGV6-A";
-  const cx = "c7621a78e53794892";
-  const url = `https://www.googleapis.com/customsearch/v1?q=${encodeURIComponent(query)}&key=${apiKey}&cx=${cx}`;
-
-  const resultsDiv = document.getElementById("results");
-  resultsDiv.innerHTML = "";
+function fetchWikipedia(query) {
+  const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`;
 
   fetch(url)
     .then(response => response.json())
     .then(data => {
-      if (data.items) {
-        data.items.forEach(item => {
-          const resultCard = document.createElement("div");
-          resultCard.className = "result-card";
+      if (data.extract) {
+        document.getElementById("wiki-results").innerHTML = `
+          <h3>SnipInfo;</h3>
+          <p>${data.extract}</p>
+          <a href="https://en.wikipedia.org/wiki/${encodeURIComponent(query)}" target="_blank">Read more</a>
+        `;
+      }
+    })
+    .catch(err => console.error("Wikipedia error:", err));
+}
 
-          let thumbnail = "";
-          if (item.pagemap && item.pagemap.cse_image && item.pagemap.cse_image[0]) {
-            thumbnail = `<img src="${item.pagemap.cse_image[0].src}" alt="Thumbnail" class="thumbnail">`;
+function fetchGoogleResults(query) {
+  const resultsDiv = document.getElementById("results");
+  resultsDiv.innerHTML = "";
+
+  const url = `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${cx}&q=${encodeURIComponent(query)}`;
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      if (data.items && data.items.length > 0) {
+        data.items.forEach(item => {
+          const card = document.createElement("div");
+          card.className = "result-card";
+
+          let imageHTML = "";
+          if (item.pagemap?.cse_image?.length) {
+            const imgSrc = item.pagemap.cse_image[0].src;
+            imageHTML = `<img src="${imgSrc}" alt="thumbnail" class="result-image" />`;
           }
 
-          resultCard.innerHTML = `
-            ${thumbnail}
+          card.innerHTML = `
+            ${imageHTML}
             <h3><a href="${item.link}" target="_blank">${item.title}</a></h3>
             <p>${item.snippet}</p>
           `;
-          resultsDiv.appendChild(resultCard);
+
+          resultsDiv.appendChild(card);
         });
       } else {
         resultsDiv.innerHTML = "<p>No results found.</p>";
@@ -57,36 +70,46 @@ function search() {
     })
     .catch(error => {
       console.error("Search error:", error);
-      resultsDiv.innerHTML = "<p>Error fetching results.</p>";
-    });
-
-  // Wikipedia Box
-  const wikiApi = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`;
-  fetch(wikiApi)
-    .then(response => response.json())
-    .then(wiki => {
-      if (wiki.extract) {
-        const wikiBox = document.createElement("div");
-        wikiBox.className = "wiki-box";
-        wikiBox.innerHTML = `
-          <h2>Wikipedia</h2>
-          <p>${wiki.extract}</p>
-          <a href="${wiki.content_urls.desktop.page}" target="_blank">Read more on Wikipedia</a>
-        `;
-        resultsDiv.prepend(wikiBox);
-      }
-    })
-    .catch(error => {
-      console.warn("No Wikipedia article found.");
+      resultsDiv.innerHTML = "<p>Search failed. Please try again.</p>";
     });
 }
 
-// ✅ Load query from URL (?q=...) and auto-search
-window.addEventListener("DOMContentLoaded", () => {
-  const params = new URLSearchParams(window.location.search);
-  const q = params.get("q");
-  if (q) {
-    document.getElementById("searchInput").value = q;
-    search();
-  }
-});
+// Fetch News API
+function fetchTopNews() {
+  const newsContainer = document.getElementById("newsApiResults");
+  newsContainer.innerHTML = "Loading top news...";
+
+  fetch(`https://newsdata.io/api/1/news?apikey=${newsApiKey}&language=en&country=in&category=top`)
+    .then(response => response.json())
+    .then(data => {
+      newsContainer.innerHTML = "";
+
+      if (data.results && data.results.length > 0) {
+        data.results.slice(0, 10).forEach(news => {
+          const card = document.createElement("div");
+          card.className = "result-card";
+
+          const imageHTML = news.image_url
+            ? `<img src="${news.image_url}" alt="news" class="result-image" />`
+            : "";
+
+          card.innerHTML = `
+            ${imageHTML}
+            <h3><a href="${news.link}" target="_blank">${news.title}</a></h3>
+            <p>${news.description || ""}</p>
+          `;
+
+          newsContainer.appendChild(card);
+        });
+      } else {
+        newsContainer.innerHTML = "<p>No news found.</p>";
+      }
+    })
+    .catch(err => {
+      console.error("News API error:", err);
+      newsContainer.innerHTML = "<p>Failed to load news.</p>";
+    });
+}
+
+// Load top news on home
+document.addEventListener("DOMContentLoaded", fetchTopNews);
