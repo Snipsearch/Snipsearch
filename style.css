@@ -22,13 +22,13 @@ header {
 }
 
 input[type="text"] {
-  padding: 10px;
+  padding: 20px;
   font-size: 16px;
-  width: 200px;
+  width: 400px;
 }
 
 button {
-  padding: 10px 20px;
+  padding: 20px 20px;
   background-color: #0066ff;
   color: white;
   border: none;
@@ -90,20 +90,6 @@ button:hover {
   background: #0052cc;
 }
 
-.app-panel .app-download-btn {
-  display: inline-block;
-  margin-top: 10px;
-  background: #28a745;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-}
-
-.app-panel .app-download-btn:hover {
-  background: #218838;
-}
-
 .result-card {
   background-color: white;
   margin: 10px;
@@ -132,4 +118,42 @@ button:hover {
   height: auto;
   border-radius: 5px;
   margin-bottom: 10px;
+}
+footer {
+  text-align: center;
+  padding: 30px 15px;
+  background-color: #0066ff;
+  color: white;
+  margin-top: 40px;
+  border-top: 5px solid #0052cc;
+}
+
+.footer-image {
+  max-width: 200px;
+  height: auto;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+/* App Download Panel */
+.app-download-panel p {
+  font-size: 16px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.app-download-button {
+  display: inline-block;
+  background-color: #28a745;
+  color: white;
+  padding: 12px 20px;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  margin: 10px auto;
+  text-align: center;
+}
+
+.app-download-button:hover {
+  background-color: #218838;
 }
