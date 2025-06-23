@@ -3,7 +3,7 @@ const cx = 'c7621a78e53794892';
 const newsApiKey = 'pub_8058222c107541d88e82662dd2739bf4';
 
 function search() {
-  const query = document.getElementById("searchInput").value;
+  const query = document.getElementById("searchInput").value.trim();
   if (!query) return;
 
   document.getElementById("homePanels").style.display = "none";
@@ -19,6 +19,7 @@ function goHome() {
   document.getElementById("searchInput").value = "";
 }
 
+// ✅ Fixed Wikipedia fetch: exact title only
 function fetchWikipedia(query) {
   const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`;
 
@@ -27,13 +28,18 @@ function fetchWikipedia(query) {
     .then(data => {
       if (data.extract) {
         document.getElementById("wiki-results").innerHTML = `
-          <h3>SnipInfo;</h3>
+          <h3>SnipInfo: ${data.title}</h3>
           <p>${data.extract}</p>
-          <a href="https://en.wikipedia.org/wiki/${encodeURIComponent(query)}" target="_blank">Read more</a>
+          <a href="https://en.wikipedia.org/wiki/${encodeURIComponent(data.title)}" target="_blank">Read more</a>
         `;
+      } else {
+        document.getElementById("wiki-results").innerHTML = `<p>No info found on Wikipedia for "${query}".</p>`;
       }
     })
-    .catch(err => console.error("Wikipedia error:", err));
+    .catch(err => {
+      console.error("Wikipedia error:", err);
+      document.getElementById("wiki-results").innerHTML = "<p>Failed to load Snipnfo.</p>";
+    });
 }
 
 function fetchGoogleResults(query) {
@@ -74,7 +80,6 @@ function fetchGoogleResults(query) {
     });
 }
 
-// Fetch News API
 function fetchTopNews() {
   const newsContainer = document.getElementById("newsApiResults");
   newsContainer.innerHTML = "Loading top news...";
@@ -111,5 +116,5 @@ function fetchTopNews() {
     });
 }
 
-// Load top news on home
+// Auto-load top news
 document.addEventListener("DOMContentLoaded", fetchTopNews);
