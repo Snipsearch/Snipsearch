@@ -33,11 +33,11 @@ function fetchWikipedia(query) {
           <a href="https://en.wikipedia.org/wiki/${encodeURIComponent(data.title)}" target="_blank">Read more</a>
         `;
       } else {
-        document.getElementById("wiki-results").innerHTML = `<p>No info found on Wikipedia for "${query}".</p>`;
+        document.getElementById("wiki-results").innerHTML = `<p>No info found on Snipsearch for "${query}".</p>`;
       }
     })
     .catch(err => {
-      console.error("SnipInfo error:", err);
+      console.error("Wikipedia error:", err);
       document.getElementById("wiki-results").innerHTML = "<p>Failed to load Snipnfo.</p>";
     });
 }
