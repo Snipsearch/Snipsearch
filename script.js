@@ -37,7 +37,7 @@ function fetchWikipedia(query) {
       }
     })
     .catch(err => {
-      console.error("Wikipedia error:", err);
+      console.error("SnipInfo error:", err);
       document.getElementById("wiki-results").innerHTML = "<p>Failed to load Snipnfo.</p>";
     });
 }
