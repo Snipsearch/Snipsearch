@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Snipsearch</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }body {
+  background: #0066ff;
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.container {
+  background: #0066ff;
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 800px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  animation: fadeIn 1s ease-in-out;
+  border: 2px solid #ffffff;
+}
+
+h1 {
+  font-size: 3rem;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin: 1rem 0;
+}
+
+.highlight {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+button {
+  margin-top: 2rem;
+  padding: 0.8rem 2rem;
+  border: none;
+  background: #ffffff;
+  color: #0066ff;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s, background 0.3s;
+}
+
+button:hover {
+  background: #e6e6e6;
+  transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-in-out;
+}
+
+.fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+  </style>
+</head>
+<body>  <div class="container">
+    <h1>About Snipsearch</h1>
+    <p class="fade">Snipsearch is a <span class="highlight">powerful and fast search engine</span> designed for developers and learners to find code snippets, answers, and resources quickly.</p>
+    <p class="fade">With Snipsearch, you can access <span class="highlight">thousands of curated information,snippets</span>, search relevant results efficiently, and save time on coding tasks.</p>
+    <p class="fade">Our goal is to make <span class="highlight">searching for technical content</span> as simple and seamless as possible, all in one platform with blazing speed and beautiful UI.</p>
+    <button id="learnMore">Learn More</button>
+  </div>  <script>
+    const fades = document.querySelectorAll('.fade');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.3 });
+
+    fades.forEach(fade => {
+      observer.observe(fade);
+    });
+
+    document.getElementById('learnMore').addEventListener('click', () => {
+      alert("Visit snipsearch.vercel.app to explore Snipsearch and supercharge your productivity!");
+    });
+  </script></body>
+</html>
