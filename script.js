@@ -76,17 +76,15 @@ function clearAllResults() {
   document.getElementById("facts-results").innerHTML = "";
 }
 
-// ✅ Enhanced Wikipedia fetch: Full article content
+// ✅ Enhanced Wikipedia fetch: Full article content + Image
 function fetchWikipediaFullArticle(query) {
-  // First get the page summary
   const summaryUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`;
   
   fetch(summaryUrl)
     .then(response => response.json())
     .then(data => {
       if (data.extract) {
-        // Now fetch the full article content
-        const contentUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&titles=${encodeURIComponent(data.title)}&prop=extracts&exintro=false&explaintext=true&origin=*`;
+        const contentUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&titles=${encodeURIComponent(data.title)}&prop=extracts|pageimages&exintro=false&explaintext=true&pithumbsize=400&origin=*`;
         
         fetch(contentUrl)
           .then(response => response.json())
@@ -94,12 +92,13 @@ function fetchWikipediaFullArticle(query) {
             const pages = contentData.query.pages;
             const pageId = Object.keys(pages)[0];
             const fullContent = pages[pageId].extract;
-            
-            // Show full article with sections
+            const thumbnail = pages[pageId].thumbnail?.source;
+
             const content = fullContent ? fullContent.substring(0, 2000) + '...' : data.extract;
-            
+
             document.getElementById("wiki-results").innerHTML = `
               <h3>SnipInfo.: ${data.title}</h3>
+              ${thumbnail ? `<img src="${thumbnail}" alt="${data.title}" class="wiki-image" />` : ""}
               <div class="wiki-summary">
                 <p><strong>Summary:</strong> ${data.extract}</p>
               </div>
@@ -114,7 +113,6 @@ function fetchWikipediaFullArticle(query) {
             `;
           })
           .catch(() => {
-            // Fallback to summary only
             document.getElementById("wiki-results").innerHTML = `
               <h3>SnipInfo.: ${data.title}</h3>
               <p>${data.extract}</p>
@@ -233,7 +231,7 @@ function fetchRandomFact() {
         document.getElementById("facts-results").innerHTML = `
           <h3>🎯 Interesting Fact</h3>
           <p>${data.text}</p>
-          <small>💡 Did you know? • Source: Snipsearch Facts</small>
+          <small>💡 Did you know? • Source: Snipsearch Insights</small>
         `;
       }
     })
@@ -245,9 +243,8 @@ function fetchRandomFact() {
 
 // NumbersAPI fetch function - Enhanced
 function fetchNumbersFact(query) {
-  // Check if query contains a number
   const numberMatch = query.match(/\d+/);
-  if (!numberMatch) return; // Exit if no number found
+  if (!numberMatch) return;
   
   const number = numberMatch[0];
   const url = `http://numbersapi.com/${number}`;
@@ -258,7 +255,7 @@ function fetchNumbersFact(query) {
       document.getElementById("numbers-results").innerHTML = `
         <h3>🔢 Numbers Fact: ${number}</h3>
         <p>${data}</p>
-        <small>📊 Mathematical • Source: Snipsearch Data</small>
+        <small>📊 Mathematical</small>
       `;
     })
     .catch(err => {
