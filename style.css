@@ -208,7 +208,13 @@ p:last-child{
   background-color: rgba(123, 182, 123, 0.1);
   border-radius: 8px;
 }
-
+.wiki-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
 .wiki-full-content {
   margin-bottom: 20px;
   padding: 15px;
