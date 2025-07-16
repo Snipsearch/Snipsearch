@@ -1,6 +1,6 @@
-const apiKey = 'AIzaSyDFliUSc0-bUmwbM1YR4wmQXk5wVgGV6-A';
+const apiKey = 'AIzaSyCgeuFocEiV9szrWo93pTT7qTGWc9sveH8';
 const cx = 'c7621a78e53794892';
-const newsApiKey = 'pub_8058222c107541d88e82662dd2739bf4';
+const gnewsApiKey = '13463084aadb9cde1f92844c1ba2acc2';
 
 // Sidebar Toggle Function
 function toggleSidebar() {
@@ -264,28 +264,44 @@ function fetchNumbersFact(query) {
     });
 }
 
+// Updated function to use GNews API for global news
 function fetchTopNews() {
   const newsContainer = document.getElementById("newsApiResults");
-  newsContainer.innerHTML = "Loading top news...";
+  newsContainer.innerHTML = "Loading global news...";
 
-  fetch(`https://newsdata.io/api/1/news?apikey=${newsApiKey}&language=en&country=in&category=top`)
+  // GNews API URL for global top headlines (removed country parameter for global news)
+  const gnewsUrl = `https://gnews.io/api/v4/top-headlines?token=${gnewsApiKey}&lang=en&max=10`;
+
+  fetch(gnewsUrl)
     .then(response => response.json())
     .then(data => {
       newsContainer.innerHTML = "";
 
-      if (data.results && data.results.length > 0) {
-        data.results.slice(0, 10).forEach(news => {
+      if (data.articles && data.articles.length > 0) {
+        data.articles.forEach(news => {
           const card = document.createElement("div");
           card.className = "result-card";
 
-          const imageHTML = news.image_url
-            ? `<img src="${news.image_url}" alt="news" class="result-image" />`
+          const imageHTML = news.image
+            ? `<img src="${news.image}" alt="news" class="result-image" />`
             : "";
+
+          // Format published date
+          const publishedDate = new Date(news.publishedAt).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          });
 
           card.innerHTML = `
             ${imageHTML}
-            <h3><a href="${news.link}" target="_blank">${news.title}</a></h3>
+            <h3><a href="${news.url}" target="_blank">${news.title}</a></h3>
             <p>${news.description || ""}</p>
+            <div class="news-meta">
+              <small>📰 ${news.source.name} • 🕒 ${publishedDate} • 🌍 Global</small>
+            </div>
           `;
 
           newsContainer.appendChild(card);
@@ -295,7 +311,57 @@ function fetchTopNews() {
       }
     })
     .catch(err => {
-      console.error("News API error:", err);
-      newsContainer.innerHTML = "<p>Failed to load news.</p>";
+      console.error("GNews API error:", err);
+      newsContainer.innerHTML = "<p>Failed to load news. Please try again later.</p>";
+    });
+}
+
+// Additional function to search global news by topic
+function searchNews(topic) {
+  const newsContainer = document.getElementById("newsApiResults");
+  newsContainer.innerHTML = "Searching global news...";
+
+  const gnewsSearchUrl = `https://gnews.io/api/v4/search?q=${encodeURIComponent(topic)}&token=${gnewsApiKey}&lang=en&max=10`;
+
+  fetch(gnewsSearchUrl)
+    .then(response => response.json())
+    .then(data => {
+      newsContainer.innerHTML = "";
+
+      if (data.articles && data.articles.length > 0) {
+        data.articles.forEach(news => {
+          const card = document.createElement("div");
+          card.className = "result-card";
+
+          const imageHTML = news.image
+            ? `<img src="${news.image}" alt="news" class="result-image" />`
+            : "";
+
+          const publishedDate = new Date(news.publishedAt).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          });
+
+          card.innerHTML = `
+            ${imageHTML}
+            <h3><a href="${news.url}" target="_blank">${news.title}</a></h3>
+            <p>${news.description || ""}</p>
+            <div class="news-meta">
+              <small>📰 ${news.source.name} • 🕒 ${publishedDate} • 🌍 Global</small>
+            </div>
+          `;
+
+          newsContainer.appendChild(card);
+        });
+      } else {
+        newsContainer.innerHTML = `<p>No news found for "${topic}".</p>`;
+      }
+    })
+    .catch(err => {
+      console.error("GNews search error:", err);
+      newsContainer.innerHTML = "<p>Failed to search news. Please try again later.</p>";
     });
 }
