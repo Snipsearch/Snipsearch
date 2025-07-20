@@ -264,3 +264,16 @@ function fetchTopNews() {
       newsContainer.innerHTML = "<p>Failed to load news. Please try again later.</p>";
     });
 }
+document.addEventListener('DOMContentLoaded', function () {
+  const popup = document.getElementById('apkPopup');
+  popup.style.display = 'block';
+
+  document.getElementById('apkDownloadBtn').addEventListener('click', function () {
+    popup.style.display = 'none';
+  });
+});
+
+function closeApkPopup() {
+  const popup = document.getElementById('apkPopup');
+  popup.style.display = 'none';
+}

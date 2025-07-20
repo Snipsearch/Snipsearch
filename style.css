@@ -448,3 +448,60 @@ footer {
     padding: 8px 12px;
   }
 }
+/* APK Popup Styles */
+.apk-popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #0066ff;
+  color: white;
+  padding: 15px 20px 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 9999;
+  display: none;
+  animation: fadeIn 0.5s ease;
+  max-width: 300px;
+}
+
+.apk-popup-content p {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.apk-download-btn {
+  background: #28a745;
+  color: white;
+  padding: 8px 14px;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.apk-download-btn:hover {
+  background: #218838;
+}
+
+/* Close Button */
+.apk-close-btn {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  background: transparent;
+  color: white;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.apk-close-btn:hover {
+  color: #ffcccc;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
