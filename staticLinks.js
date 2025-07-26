@@ -7,6 +7,10 @@ const staticWebLinks = [
     url: "https://www.nasa.gov"
   },
   {
+    keywords: ["snipart","today's snipart","today snipart"]
+     url: "https://snipsearch.github.io/SnipArt/"
+ },
+  {
     keywords: ["isro", "isro official", "india space", "indian space agency", "isro satellite", "chandrayaan"],
     url: "https://www.isro.gov.in"
   },
